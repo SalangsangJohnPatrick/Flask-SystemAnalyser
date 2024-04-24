@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.team-section{
+    min-height: 100vh;
+    width: 100%;
+    background-color: #1e1e1f;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    position: relative;
+}
+
+.navbar{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 100px;
+    position: relative;
+}
+
+.navbar .logo{
+    color: #fc7f03;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 40px;
+    position: relative;
+}
+
+.navbar .menu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar .menu ul{
+    display: flex;
+    list-style: none;
+}
+
+.navbar .menu ul li a{
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    padding: 0px 20px;
+    font-size: 18px;
+}
+
+.navbar .menu ul li a:hover{
+    color: #fc7f03;
+    transition: 0.5s ease;
+}
+
+label{
+    display: none;
+    font-size: 25px;
+    cursor: pointer;
+    color: #fff;
+}
+
+label:hover{
+    color: #fc7f03;
+}
+
+#check{
+    display: none;
+    z-index: 3;
+}
+
+.team-section .container{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+}
+
+.team-section .container .row{
+    width: 60%;
+    margin: auto;
+}
+
+.team-section .container .row .title{
+    text-align: center;
+    margin: auto;
+}
+
+.team-section .container .row .title h1{
+    font-size: 35px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #0078d4;
+}
+
+.team-section .container .row .title p{
+    font-size: 18px;
+    font-family: sans-serif;
+    text-align: center;
+    margin: 30px 0px;
+    color: #fff;
+}
+
+.team-section .container .team-card{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 40px;
+    margin-top: 50px;
+}
+
+.team-section .container .team-card .card{
+    width: 100%;
+    background-color: #181919;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.team-section .container .team-card .card:hover{
+    background-color: #434242;
+    transition: 0.3s;
+}
+
+.team-section .container .team-card .card .image-section img{
+    height: 150px;
+    width: 150px;
+    border-radius: 50px;
+    border: 6px solid #fff;
+}
+
+.team-section .container .team-card .card .content{
+    width: 100%;
+    text-align: center;
+}
+
+.team-section .container .team-card .card .content h3{
+    font-size: 27px;
+    margin-top: 10px;
+    letter-spacing: 1.5px;
+    color: #0078d4;
+}
+
+.team-section .container .team-card .card .content h4{
+    font-size: 17px;
+    margin-top: 10px;
+    letter-spacing: 1.5px;
+    color: #fff;
+}
+
+.team-section .container .team-card .card .content p{
+    font-size: 15px;
+    margin: 16px 0px;
+    line-height: 1.5;
+    color: #6c6c6c;
+}
+
+@media screen and (max-width: 992px){
+    .team-section .container .team-card{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .navbar .menu{
+        display: none;
+    }
+    label{
+        display: block;
+    }
+    label .close-btn{
+        display: none;
+    }
+    #check:checked ~ .navbar .menu{
+        z-index: 2;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        background-color: #434242;
+        text-align: center;
+    }
+    .navbar .menu ul{
+        flex-direction: column;
+    }
+    .navbar .menu ul li{
+        padding: 20px 0px;
+    }
+    .navbar .menu ul li a{
+        font-weight: 500;
+    }
+    #check:checked ~ .navbar label .menu-btn{
+        display: none;
+    }
+    #check:checked ~ .navbar label .close-btn{
+        display: block;
+        z-index: 2;
+        position: fixed;
+    }
+    label .menu-btn{
+        position: absolute;
+    }
+    .navbar .logo{
+        bottom: -12px;
+        font-size: 30px;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .team-section .container .team-card{
+        grid-template-columns: 1fr;
+    }
+    .navbar .logo{
+        font-size: 22px;
+    }
+}

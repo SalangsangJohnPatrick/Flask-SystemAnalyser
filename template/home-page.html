@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Analyser</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='home-page.css') }}">
+</head>
+
+<body>
+    <div class="section">
+        <input type="checkbox" id="check">
+        <div class="navbar">
+            <div class="logo">
+                <h2>system analyser</h2>
+            </div>
+            <div class="menu">
+                <ul>
+                    <li><a href="/">home</a></li>
+                    <li><a href="/members">dev</a></li>
+                </ul>
+            </div>
+            <label for="check">
+                <i class="fas fa-bars menu-btn"></i>
+                <i class="fas fa-times close-btn"></i>
+            </label>
+        </div>
+        <div class="container">
+            <div class="content">
+                <div class="article">
+                    <h1>about</h1>
+                    <p>
+                        Predicting the estimated relative performance (ERP) of computer hardwares using Multiple Linear Regression based on three predictor variables: 
+                        maximum main memory (MMAX) in kilobytes, cache memory (CACH) in kilobytes, and minimum channels (CHMIN) in units.
+                    </p>
+                    <p>
+                        For this multiple linear regression GUI, the independent variables are MMAX, CACH, and CHMIN, 
+                        while ERP is the dependent variable we aim to predict.
+                    </p>
+                    <p>This multiple linear regression will provide a quantitative way to understand how changes in 
+                        maximum main memory (MMAX) in kilobytes, cache memory (CACH) in kilobytes, and minimum channels (CHMIN) in units 
+                        affect the Estimated Relative Performance (ERP) of computer hardwares, enabling better decision-making in system design and optimization. 
+                    </p>
+                </div>
+            </div>
+            <div class="input">
+                <h3>input variables</h3>
+                <form id="input-form" action="/analyze_data" method="post" enctype="multipart/form-data">
+                    <div class="input-group">
+                        <input type="text" id="input-dependent" name="input-dependent" placeholder="Dependent Variable [y]" autocomplete="off">
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="input-independent" name="input-independent" placeholder="Independent Variable/s [x]" autocomplete="off">
+                    </div>
+                    <form id="import-form" action="/import_csv" method="post" enctype="multipart/form-data">
+                        <div class="import-group">
+                            <input type="text" id="import-csv" name="import_csv" placeholder="example.csv" readonly>
+                            <label for="csv_file"></label>
+                            <input type="file" id="csv_file" id="csv_file" name="csv_file" style="display: none;" accept=".csv">
+                            <button type="button" id="import-button">Import CSV</button>
+                        </div>
+                    </form>
+                    <div class="buttons">
+                        <button type="submit" id="submit-button">submit</button>
+                        <button id="clear-button">clear</button>
+                    </div>
+                </form>
+                <p>
+                    Note: For independent variables input, it should be comma-separated and should match the header names in CSV file.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('import-button').addEventListener('click', function() {
+            document.getElementById('csv_file').click();
+        });
+    
+        document.getElementById('csv_file').addEventListener('change', function() {
+            document.getElementById('import-csv').value = this.value.split(/(\\|\/)/g).pop();
+        });
+
+        // Ensure form submission doesn't interfere with file upload
+        document.getElementById('submit-button').addEventListener('click', function(event) {
+            var dependentInput = document.getElementById('input-dependent').value.trim();
+            var independentInput = document.getElementById('input-independent').value.trim();
+
+            // Check if dependent and independent inputs are empty
+            if (dependentInput === '' || independentInput === '') {
+                event.preventDefault(); // Prevent form submission
+                alert('Please provide both dependent and independent variables.'); // Display pop-up message
+            } else {
+                // Check if CSV file is uploaded
+                if (document.getElementById('csv_file').files.length === 0) {
+                    event.preventDefault(); // Prevent form submission
+                    alert('Please import a CSV file.'); // Display pop-up message
+                } else {
+                    // Read the uploaded CSV file
+                    var file = document.getElementById('csv_file').files[0];
+                    var reader = new FileReader();
+                    reader.readAsText(file);
+                    reader.onload = function(event) {
+                        var csvData = event.target.result;
+                        var data = csvData.split('\n');
+                        var header = data[0].split(',').map(function (item) {
+                            return item.trim(); // Trim whitespace from header
+                        });
+
+                        // Check if dependent and independent variables are present in the CSV header
+                        var dependentPresent = header.includes(dependentInput.trim());
+                        var independentPresent = true;
+                        var independentVariables = independentInput.split(',').map(function (item) {
+                            return item.trim(); // Trim whitespace from independent variables
+                        });
+                        for (var i = 0; i < independentVariables.length; i++) {
+                            if (!header.includes(independentVariables[i])) {
+                                independentPresent = false;
+                                break;
+                            }
+                        }
+
+                        if (!dependentPresent || !independentPresent) {
+                            event.preventDefault(); // Prevent form submission
+                            alert('One or more variables are not present in the CSV file.'); // Display pop-up message
+                        } else if (independentVariables.length > 3) {
+                            event.preventDefault(); // Prevent form submission
+                            alert('Only provide a maximum of three (3) independent variables.'); // Display pop-up message
+                        } else {
+                            // All validations pass, submit the form
+                            document.getElementById('input-form').submit();
+                        }
+                    };
+                }
+            }
+        });
+
+        document.getElementById('clear-button').addEventListener('click', function(event) {
+            document.getElementById('input-form').reset();
+        });
+    </script>
+</body>
+</html>

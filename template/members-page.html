@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Analyser</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='members-page.css') }}">
+</head>
+
+<body>
+    <div class="team-section">
+        <input type="checkbox" id="check">
+        <div class="navbar">
+            <div class="logo">
+                <h2>system analyser</h2>
+            </div>
+            <div class="menu">
+                <ul>
+                    <li><a href="/">home</a></li>
+                    <li><a href="/members">dev</a></li>
+                </ul>
+            </div>
+            <label for="check">
+                <i class="fas fa-bars menu-btn"></i>
+                <i class="fas fa-times close-btn"></i>
+            </label>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="title">
+                    <h1>developers</h1>
+                    <p>
+                        This project would not be possible without our team, their collaboration and insightful discussions enriched our experience to complete this assessment.
+                    </p>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="card">
+                    <div class="image-section">
+                        <img src="static/img/david.png">
+                    </div>
+                    <div class="content">
+                        <h3>David, GK</h3>
+                        <h4>Front-End</h4>
+                        <p>godavid@student.hau.edu.ph</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="image-section">
+                        <img src="static/img/gomez.png">
+                    </div>
+                    <div class="content">
+                        <h3>Gomez, P</h3>
+                        <h4>Back-End</h4>
+                        <p>psgomez@student.hau.edu.ph</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="image-section">
+                        <img src="static/img/salangsang.png">
+                    </div>
+                    <div class="content">
+                        <h3>Salangsang, JP</h3>
+                        <h4>Front-End</h4>
+                        <p>jmsalangsang@student.hau.edu.ph</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
